@@ -1,0 +1,16 @@
+.star-container{
+  /* pour cacher les icônes inactives */
+  overflow: hidden;
+  cursor: pointer;
+}
+
+span{
+  width: 25px;
+}
+
+.star-wrapper{
+  /* pour chaque étoile */
+  width: 125px;
+  /* quand le curseur passe sur l'étoile, un pointeur apparaît */
+  cursor: pointer;
+}

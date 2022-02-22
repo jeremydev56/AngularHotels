@@ -1,0 +1,15 @@
+<div
+  class="star-container"
+  [style.width.px]="starWidth"
+  [title]="rating"
+  (click)="sendRating()"
+>
+  <!-- passer la valeur CSS déclarée en PROPERTY BINDIND [] -->
+  <div class="star-wrapper">
+    <span class="span material-icons">star_rate</span>
+    <span class="span material-icons">star_rate</span>
+    <span class="span material-icons">star_rate</span>
+    <span class="span material-icons">star_rate</span>
+    <span class="span material-icons">star_rate</span>
+  </div>
+</div>

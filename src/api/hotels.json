@@ -1,0 +1,50 @@
+[
+  {
+    "hotelId": 1,
+    "hotelName": "GEM Hotel Chelsea",
+    "hotelDescription": "The Nicest Front Desk Operator of Chelsea !",
+    "hotelPrice": 200,
+    "hotelPicture" : "assets/pictures/GEMHotel.jpg",
+    "rating": 5
+  },
+  {
+    "hotelId": 2,
+    "hotelName": "Luma Hotel Times Square",
+    "hotelDescription": "You'll be in the heart of Broadway !",
+    "hotelPrice": 300,
+    "hotelPicture" : "assets/pictures/LumaHotelTimesSquare.png",
+    "rating": 4.5
+  },
+  {
+    "hotelId": 3,
+    "hotelName": "Merrion Row Hotel and Public House",
+    "hotelDescription": "The most typical hotel of New York City !",
+    "hotelPrice": 350,
+    "hotelPicture" : "assets/pictures/MerrionRowHotel.png",
+    "rating": 4
+  },
+  {
+    "hotelId": 4,
+    "hotelName": "Pendry Manhattan West",
+    "hotelDescription": "A fine taste of sweetness and beauty : the spirit of Big Apple !",
+    "hotelPrice": 500,
+    "hotelPicture" : "assets/pictures/PendryManhattanWest.png",
+    "rating": 3.5
+  },
+  {
+    "hotelId": 5,
+    "hotelName": "The Chatwal",
+    "hotelDescription": "Delightful ! Wonderful !",
+    "hotelPrice": 800,
+    "hotelPicture" : "assets/pictures/TheChatwal.png",
+    "rating": 4.5
+  },
+  {
+    "hotelId": 6,
+    "hotelName": "Equinox",
+    "hotelDescription": "And i'm feeling good ...",
+    "hotelPrice": 575,
+    "hotelPicture" : "assets/pictures/Equinox.png",
+    "rating": 4
+  }
+]

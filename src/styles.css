@@ -1,1 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+/*Import de BOOTSTRAP */
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+/* Import de MATERIAL-ICONS */
+@import 'material-icons/iconfont/material-icons.css';
+

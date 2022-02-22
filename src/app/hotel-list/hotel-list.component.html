@@ -1,0 +1,114 @@
+<div class="container">
+
+  <!-- Création du bouton "Nouveau" -->
+  <button class="btn btn-primary d-flex mt-1 mb-5" (click)="toggleIsNewBadge()">
+    <span class="material-icons">
+      {{ showBadge ? 'visibility_off' : 'visibility' }}
+    </span>
+    <span class="ml-5">
+      {{ showBadge ? 'Hide' : 'Show' }}
+    </span>
+  </button>
+
+  <hr>
+  <div class="my-2">
+    <div class="row">
+      <div class="col-md-4">
+        <!-- la somme des colonnes est de 12 -->
+        <span class="filter">You're searching for : </span>
+        <b>{{ hotelFilter }}</b>
+
+       </div>
+      <div class="col-md-8 form group">
+        <input type="text" class="form-control"  [(ngModel)]="hotelFilter">
+        <!--
+          2-WAY BINDING : les données sont à la fois lues et écrites automatiquement ;
+          d'où la [(ngModel)]="hotelFilter" =
+          CROCHET pour PROPRIÉTÉ
+          PARENTHÐSE pour ÉVÉNEMENT
+          permettre à hotelFiter d'être actualisé
+          et le mot tapé dans l'input apparaîtra dans le champ sur sa gauche
+         -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Le message est affiché que si receivedRating affiche quelque chose -->
+  <div class="alert alert-primary" *ngIf="!!receivedRating">
+    {{ receivedRating }}
+  </div>
+
+  <!--
+    {{ showBadge ? 'visibility_off' : 'visibility' }}
+    si le badge est affiché, la visibilité de l'icône est nulle
+    si le badge n'est pas affiché, la visibilité de l'icône est réelle
+
+    {{ showBadge ? 'Hide' : 'Show' }}
+    si le Badge est affiché alors, on cache
+    si le Badge est masqué, alors on affiche
+
+    ngIf = directive pour dire que
+    si la longueur des hôtels est supérieure à 0
+    afficher le titre
+
+    ((click)= eventBinding,
+    qui renvoie à l'événement de click
+    pour appeler la méthode ToggleIsNewBadge
+  -->
+  <h2 *ngIf="hotels && hotels.length > 0">{{ title }}</h2>
+  <!-- INTERPOLATION du title présent dans le fichier TypeScript -->
+
+  <div class="row row-cols-1 row-cols-md-3">
+    <div class="col mb-4" *ngFor="let hotel of filteredHotels">
+      <!-- Dans la liste des hôtels, filtre le mot cherché-->
+      <div class="card">
+        <!--
+          [src] indique une property binding,
+          à savoir un passage des propriétés du lien indiquées dans le fichier Typescript
+          vers ce fichier HTML
+        -->
+
+        <!--
+          PIPE : transforme une propriété avant de l'afficher
+          | uppercase : transformer le nom de l'hôtel (hotel.hotelName) en MAJUSCULES
+          | currency : ajouter la monnaie au prix (par défaut, le dollar)
+         -->
+        <img [src]="hotel.hotelPicture" [title]="hotel.hotelName" class="card-img-top" [alt]="hotel.hotelName"/>
+        <div class="card-body">
+            <h5 class="card-title">{{ hotel.hotelName | uppercase}}</h5>
+            <p class="card-text">{{ hotel.hotelDescription }}</p>
+            <p class="card-text">{{ hotel.hotelPrice | currency }}</p>
+
+            <div class="d-flex justify-content between align-items-baseline">
+              <app-star-rating
+              [rating]="hotel.rating"
+              (starRatingClicked)="receiveRatingClick($event)"
+            ></app-star-rating>
+
+              <span class="material-icons
+              bg-info
+              text-white
+              p-2
+              rounded-circle btn"
+              [routerLink]="['/hotels', hotel.hotelId]">
+                keyboard_arrow_right
+              </span>
+            </div>
+
+            <!--
+              Pour l'import des étoiles au sein du template,
+              on passe l'élément parent (notes de l'hôtel en TS)
+              à l'élément enfant (affichage en HTML)
+              +
+              (starRatingClicked) = recevoir l'événement de clic sur l'étoile
+            -->
+
+            <span class="badge-pill badge-info" *ngIf="showBadge">New</span>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- ngIf = la logique de la condition IF -->
+<!-- ngFor = la logique de la condition FOR -->
