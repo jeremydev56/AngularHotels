@@ -6,7 +6,7 @@ et libérer le component de cet effort
 
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { IHotel } from "./hotel";
+import { IHotel } from "../models/hotel";
 import { Observable, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 
@@ -21,18 +21,12 @@ export class HotelListService {
   private readonly HOTEL_API_URL = '/api/hotels.json';
 
   // Installation du constructeur dans notre service
-  constructor(private http: HttpClient){
-  }
+  constructor(private http: HttpClient){}
 
   // Méthode pour récupérer la liste des hôtels au sein du service
   public getHotels(): Observable<IHotel[]>{
     return this.http.get<IHotel[]>(
-      // insertion de l'url de la requête
-      this.HOTEL_API_URL
-    ).pipe(
-      // .pipe = ajouter les opérateurs
-
-    );
+      this.HOTEL_API_URL).pipe();
   }
 
 

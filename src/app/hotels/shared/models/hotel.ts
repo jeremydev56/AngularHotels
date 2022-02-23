@@ -6,7 +6,8 @@ utilisé comme types pour les propriétés et méthodes
 */
 
 /* TOUJOURS UN I DEVANT LE NOM DE L'INTERFACE */
-export interface IHotel{
+export interface IHotel {
+  id: number;
   // définir le type de l'objet qui figure dans l'objet du tableau hotels
   hotelId: number;
 
@@ -19,5 +20,4 @@ export interface IHotel{
   hotelPicture: string;
 
   rating: number;
-
 }

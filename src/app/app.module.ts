@@ -8,10 +8,8 @@ import { registerLocaleData } from '@angular/common';
 import localeEn from '@angular/common/locales/en';
 
 import { AppComponent } from './app.component';
-import { HotelListComponent } from './hotel-list/hotel-list.component';
-import { StarRatingComponent } from './shared/components/star-rating/star-rating.component';
 import { HomeComponent } from './home/home.component';
-import { HotelDetailComponent } from './hotel-list/hotel-detail/hotel-detail.component';
+import { HotelModule } from './hotels/hotel.module';
 
 // mettre la langue de l'app en anglais (américain => en-US)
 registerLocaleData(localeEn, 'en-US');
@@ -19,11 +17,9 @@ registerLocaleData(localeEn, 'en-US');
 @NgModule({
   declarations: [
     // ENREGISTRER LES COMPONENTS PRÉSENTS DANS L'APPLICATION
+    // LES COMPOSANTS N'APPARTIENNENT QU'À UN SEUL MODULE
     AppComponent,
-    HotelListComponent,
-    StarRatingComponent,
-    HomeComponent,
-    HotelDetailComponent
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -35,12 +31,9 @@ registerLocaleData(localeEn, 'en-US');
       { path: 'home', component: HomeComponent },
       // si l'url se termine par du vide => redirection vers le HomeComponent
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      // si l'url se termine par hotels/:id => direction le HotelDetailComponent
-      { path: 'hotels/:id', component: HotelDetailComponent },
-      // si l'url se termine par hotels => direction le HotelListCompoentn
-      { path: 'hotels', component: HotelListComponent },
       { path: '**', redirectTo: 'home', pathMatch: 'full' }
-    ])
+    ]),
+    HotelModule
   ],
   providers: [],
   bootstrap: [AppComponent]

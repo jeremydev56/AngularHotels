@@ -1,8 +1,8 @@
 // Importer les métadonnées : Component, OnInit
 import { Component, OnInit } from "@angular/core";
 // import de l'interface
-import { IHotel } from "./hotel";
-import { HotelListService } from "./hotel-list.service";
+import { IHotel } from "../shared/models/hotel";
+import { HotelListService } from "../shared/services/hotel-list.service";
 
 /*
   Le component se compose :
