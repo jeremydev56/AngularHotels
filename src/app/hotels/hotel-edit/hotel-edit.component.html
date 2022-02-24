@@ -1,0 +1,83 @@
+<!-- PAGE POUR CRÉÉR UN NOUVEL HÔTEL -->
+
+
+<div class="card">
+  <div class="card-header text-white bg-info">
+    Create an hotel
+  </div>
+
+  <div class="card-body">
+
+    <!--
+      LE FORMULAIRE D'ÉDITION
+      à connecter au TS
+      par la directive [formGroup]
+      et sauvegarde les données
+      grâce à la méthode ngSubmit
+    -->
+    <form noValidate (ngSubmit)="saveHotel()" [formGroup]="hotelForm">
+
+      <!-- LE NOM -->
+      <div class="form-group row mb-2">
+        <label for="hotelNameId" class=" col-md-2 col-form-label">
+          Name
+        </label>
+        <div class="col-md-8">
+          <input id="hotelNameId" type="text" class="form-control" formControlName="hotelName" placeholder="NAME (required)">
+        </div>
+      </div>
+
+      <!-- LE PRIX -->
+      <div class="form-group row mb-2">
+        <label for="hotelPriceId" class=" col-md-2 col-form-label">
+          Price
+        </label>
+        <div class="col-md-8">
+          <input id="hotelPriceId" type="number" class="form-control" formControlName="hotelPrice" placeholder="PRICE (required)">
+        </div>
+      </div>
+
+      <!-- LA NOTE -->
+      <div class="form-group row mb-2">
+        <label for="starRatingId" class=" col-md-2 col-form-label">
+          Rating (1-5)
+        </label>
+        <div class="col-md-8">
+          <input id="starRatingId" type="number" class="form-control" formControlName="starRating" placeholder="RATING (1-5)">
+        </div>
+      </div>
+
+      <!-- LA DESCRIPTION -->
+      <div class="form-group row mb-2">
+        <label for="descriptionId" class=" col-md-2 col-form-label">
+          Description
+        </label>
+        <div class="col-md-8">
+          <textarea class="form-control" id="descriptionId" formControlName="description"></textarea>
+        </div>
+      </div>
+
+      <!-- LES BOUTONS D'ENREGISTREMENT / D'ANNULATION / DE SUPPRESSION -->
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-info mr-3" type="submit">
+            Save
+          </button>
+          <button class="btn btn-outline-secondary mr-3" type="reset" router-Link="/hotels">
+            Cancel
+          </button>
+          <button class="btn btn-outline-danger" type="button">
+            Delete
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<pre>
+  {{ hotelForm.value | json }}
+</pre>
+

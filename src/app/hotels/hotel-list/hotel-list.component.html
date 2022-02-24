@@ -85,6 +85,16 @@
               (starRatingClicked)="receiveRatingClick($event)"
             ></app-star-rating>
 
+              <!-- Pour un nouveau bouton permettant de renvoyer sur la page d'édition -->
+              <span class="material-icons
+              bg-primary
+              text-white
+              p-2
+              rounded-circle btn"
+              [routerLink]="['/hotels', hotel.hotelId, 'edit']">
+                edit
+              </span>
+
               <span class="material-icons
               bg-info
               text-white

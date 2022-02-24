@@ -9,11 +9,32 @@
       <!-- routerLinkActive = mettre en surbrillance le lien cliqué -->
       <li class="nav-item" routerLinkActive="active">
         <!-- création de la route vers la page d'accueil -->
-        <a class="nav-link" [routerLink]="['/home']">Home</a>
+        <a class="nav-link"
+        [routerLink]="['/home']">
+        Home
+      </a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
-        <!-- création de la route vers la page des hôtels -->
-        <a class="nav-link" [routerLink]="['/hotels']">Hotels List</a>
+      <li class="nav-item" routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}">
+        <!--
+          création de la route vers la page des hôtels
+          Le lien sélectionné sera actif, grâce à {exact: true}.
+        -->
+        <a class="nav-link"
+        [routerLink]="['/hotels']">
+        Hotels list
+      </a>
+      </li>
+      <li class="nav-item" routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}">
+        <!--
+          création de la route vers le nouveau menu d'édition d'hôtels
+          Le lien sélectionné sera actif, grâce à {exact: true}.
+        -->
+        <a class="nav-link"
+        [routerLink]="['/hotels', '0', 'edit']">
+        Adding Hotels
+      </a>
       </li>
     </ul>
   </div>
