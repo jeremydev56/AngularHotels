@@ -77,7 +77,7 @@
         <div class="card-body">
             <h5 class="card-title">{{ hotel.hotelName | uppercase}}</h5>
             <p class="card-text">{{ hotel.hotelDescription }}</p>
-            <p class="card-text">{{ hotel.hotelPrice | currency }}</p>
+            <p class="card-text">{{ hotel.price | currency }}</p>
 
             <div class="d-flex justify-content between align-items-baseline">
               <app-star-rating
@@ -86,24 +86,35 @@
             ></app-star-rating>
 
               <!-- Pour un nouveau bouton permettant de renvoyer sur la page d'édition -->
-              <span class="material-icons
-              bg-primary
-              text-white
-              p-2
-              rounded-circle btn"
-              [routerLink]="['/hotels', hotel.hotelId, 'edit']">
+              <span class="
+                material-icons
+                bg-primary
+                text-white
+                p-2
+                rounded-circle
+                btn"
+                [routerLink]="['/hotels', hotel.id, 'edit']">
                 edit
-              </span>
-
-              <span class="material-icons
-              bg-info
-              text-white
-              p-2
-              rounded-circle btn"
-              [routerLink]="['/hotels', hotel.hotelId]">
+            </span>
+            <span class=
+                "material-icons bg-info text-white p-2 rounded-circle btn"
+                [routerLink]="['/hotels', hotel.id]">
                 keyboard_arrow_right
-              </span>
-            </div>
+            </span>
+          </div>
+
+
+            <ng-container *ngFor="let tag of hotel.tags ; let i = index">
+              <ng-container *ngIf="showBadge">
+                <span
+                  class="badge badge-pill"
+                  [ngClass]="0 === i % 2 ? 'badge-success': 'badge-info ml-2'"
+                >
+                  {{ tag }}
+                </span>
+              </ng-container>
+            </ng-container>
+
 
             <!--
               Pour l'import des étoiles au sein du template,
@@ -113,7 +124,7 @@
               (starRatingClicked) = recevoir l'événement de clic sur l'étoile
             -->
 
-            <span class="badge-pill badge-info" *ngIf="showBadge">New</span>
+
           </div>
         </div>
       </div>

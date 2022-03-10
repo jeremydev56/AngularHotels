@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+
 import { HotelListComponent } from './hotel-list/hotel-list.component';
 import { HotelDetailComponent } from './hotel-list/hotel-detail/hotel-detail.component';
 import { StarRatingComponent } from '../shared/components/star-rating/star-rating.component';
-import { RouterModule } from '@angular/router';
-import { HotelDetailGuard } from './shared/guards/hotel-detail.guard';
-import { FormsModule } from '@angular/forms';
-import { SharedModule } from '../shared/shared.module';
-import { HotelEditComponent } from './hotel-edit/hotel-edit.component';
+import { HotelData } from './shared/api/hotel.data';
 
 
 
@@ -16,22 +14,12 @@ import { HotelEditComponent } from './hotel-edit/hotel-edit.component';
     // déclarer les deux modules
     HotelListComponent,
     HotelDetailComponent,
-    StarRatingComponent,
-    HotelEditComponent
+    StarRatingComponent
   ],
   imports: [
-    FormsModule,
-    CommonModule,
-    RouterModule.forChild([
-      // si l'url se termine par hotels/:id => direction le HotelDetailComponent
-      { path: 'hotels/:id', component: HotelDetailComponent,
-      // import du Guard canActivate
-      canActivate: [HotelDetailGuard]
-      },
-      // si l'url se termine par hotels => direction le HotelListCompoentn
-      { path: 'hotels', component: HotelListComponent },
-    ]),
-    SharedModule
+    SharedModule,
+    InMemoryWebApiModule.forFeature(HotelData)
   ]
 })
+
 export class HotelModule { }

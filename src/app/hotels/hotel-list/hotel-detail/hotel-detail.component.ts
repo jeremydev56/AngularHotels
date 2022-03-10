@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IHotel } from '../shared/models/hotel';
-import { HotelListService } from '../shared/services/hotel-list.service';
+import { IHotel } from '../../shared/models/hotel';
+import { HotelListService } from '../../shared/services/hotel-list.service';
 
 @Component({
   selector: 'app-hotel-detail',
@@ -42,12 +42,19 @@ export class HotelDetailComponent implements OnInit {
           l'id sélectionné dans notre route
           et défini avec const id = parseInt(stringId);
           */
-          this.hotelListService.getHotels().subscribe(
-            (hotels: IHotel[]) => {
-              this.hotel = hotels.find((hotel: IHotel) => hotel.id === id);
-              console.log('hotel : ', this.hotel);
-          }
-        );
+          this.hotelListService.getHotels().subscribe((hotels: IHotel[]) => {
+            // this.hotel = hotels.find((hotel: IHotel) => hotel.id === id);
+            const hotel = hotels.find((hotel: IHotel) => hotel.id === id);
+
+            // CECI
+            // if (hotel !== undefined && hotel !== null) {
+            // EST ÉQUIVALENT À
+            // if (hotel != null) {
+            if (hotel !== undefined) {
+              this.hotel = hotel;
+            }
+            console.log('hotel : ', this.hotel);
+          });
     }
 
 

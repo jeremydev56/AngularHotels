@@ -1,8 +1,8 @@
 // Importer les métadonnées : Component, OnInit
 import { Component, OnInit } from "@angular/core";
 // import de l'interface
-import { IHotel } from "../shared/models/hotel";
-import { HotelListService } from "../shared/services/hotel-list.service";
+import { IHotel } from '../shared/models/hotel';
+import { HotelListService } from '../shared/services/hotel-list.service';
 
 /*
   Le component se compose :
@@ -74,7 +74,7 @@ export class HotelListComponent implements OnInit{
   ];
 
 // Nouvelle propriété pour afficher le badge "New" (petit rectangle)
-public showBadge: boolean | undefined;
+public showBadge: boolean = true;
 
 // Nouvelle propriété pour filtrer un mot
 private _hotelFilter = '';
