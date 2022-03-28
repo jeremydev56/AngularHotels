@@ -9,6 +9,7 @@ import localeEn from '@angular/common/locales/en';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { HotelModule } from './hotels/hotel.module';
+import { AppRoutingModule } from './app-routing.module';
 
 // mettre la langue de l'app en anglais (américain => en-US)
 registerLocaleData(localeEn, 'en-US');
@@ -24,9 +25,10 @@ registerLocaleData(localeEn, 'en-US');
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    HotelModule
+    HotelModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

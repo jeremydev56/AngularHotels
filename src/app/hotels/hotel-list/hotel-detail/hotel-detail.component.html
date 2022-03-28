@@ -1,6 +1,5 @@
 <!-- Le renvoi vers la page de détails -->
 
-
 <div class="container">
   <div class="card" *ngIf="hotel">
     <div class="card-header text-white bg-info">
@@ -25,7 +24,7 @@
           <!-- PRIX DE L'HÔTEL -->
           <div class="row">
             <div class="col-md-4">Prix:</div>
-            <div class="col-md-8">{{hotel.hotelPrice}}</div>
+            <div class="col-md-8">{{ hotel.price }}</div>
           </div>
 
           <!-- NOTE DE L'HÔTEL -->
@@ -49,12 +48,11 @@
         <div class="card-footer">
           <button class="btn btn-outline-info d-flex" (click)="backToList()">
             <!-- Méthode backtoList() = pour retourner à la liste principale -->
-            <span class="material-icons">keyboard_arrow_left
-              Return to the main list
+            <span class="material-icons"
+              >keyboard_arrow_left Return to the main list
             </span>
           </button>
         </div>
-
       </div>
     </div>
   </div>

@@ -1,8 +1,30 @@
 import { ParseTreeResult } from '@angular/compiler';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  ViewChildren
+} from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormControlName,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounce, debounceTime, EMPTY, fromEvent, merge, Observable, timer } from 'rxjs';
+import {
+  debounce,
+  debounceTime,
+  EMPTY,
+  fromEvent,
+  merge,
+  Observable,
+  timer
+} from 'rxjs';
 import { IHotel } from '../shared/models/hotel';
 import { HotelListService } from '../shared/services/hotel-list.service';
 import { GenericGlobalValidator } from '../shared/validators/generic-global.validator';
@@ -14,10 +36,10 @@ import { NumberValidators } from '../shared/validators/numbers.validator';
   styleUrls: ['./hotel-edit.component.css']
 })
 export class HotelEditComponent implements OnInit, AfterViewInit {
-
   // @ViewChildren : avoir accès à tous les éléments
 
-  @ViewChildren(FormControlName, { read: ElementRef }) inputElements: ElementRef[];
+  @ViewChildren(FormControlName, { read: ElementRef })
+  inputElements: ElementRef[] = [];
 
   // propriété pour le formulaire
   public hotelForm!: FormGroup;
@@ -30,53 +52,52 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
   public formErrors: { [key: string]: string } = {};
 
   // Propriété pour afficher un message de validation
-  private validationMessages: {[key: string]: {[key: string]:  string} } = {
+  private validationMessages: { [key: string]: { [key: string]: string } } = {
     hotelName: {
-      required: "The name of the hotel is required.",
-      minlength : "The name of the hotel must contain at least 8 characters."
+      required: 'The name of the hotel is required.',
+      minlength: 'The name of the hotel must contain at least 8 characters.'
     },
     price: {
-      required: "The price of the hotel is required.",
-      pattern: "The price must be a number."
+      required: 'The price of the hotel is required.',
+      pattern: 'The price must be a number.'
     },
     rating: {
-      range: "The rating must be between 1 and 5 included."
+      range: 'The rating must be between 1 and 5 included.'
     }
   };
 
   private genericGlobalValidator!: GenericGlobalValidator;
   private isFormSubmitted!: boolean;
 
-
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private hotelService: HotelListService,
     private router: Router
-    ) {
-   }
+  ) {}
 
-   // ngOnInit() = responsable de l'initialisation des templates
+  // ngOnInit() = responsable de l'initialisation des templates
   ngOnInit(): void {
     // Pour faire passer les messages de validation
-    this.genericGlobalValidator = new GenericGlobalValidator(this.validationMessages);
+    this.genericGlobalValidator = new GenericGlobalValidator(
+      this.validationMessages
+    );
     // Méthode pour le formulaire
     // fb.group() = regroupe les éléments dans un formulaire
     this.hotelForm = this.fb.group({
       // construction du formulaire
-      hotelName: ['',
-        [Validators.required, Validators.minLength(4)]
-    ],
-      price: ['',
+      hotelName: ['', [Validators.required, Validators.minLength(4)]],
+      price: [
+        '',
         [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]
-    ],
-      rating: ['',
-        NumberValidators.range(1,5)
-    ],
-      description: [''],
+      ],
+      rating: ['', NumberValidators.range(1, 5)],
+      description: ['']
     });
 
-    this.formErrors = this.genericGlobalValidator.createErrorMessages(this.hotelForm);
+    this.formErrors = this.genericGlobalValidator.createErrorMessages(
+      this.hotelForm
+    );
 
     /*
     appel de this.route
@@ -85,16 +106,16 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
     au sein desquels je vais chercher
     l'id avec .get('id')
     */
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       // Pour convertir le string en number
-      if(id == null) return;
+      if (id == null) return;
       const stringId = id;
       const parseId = parseInt(stringId);
       // console.log(parseId);
 
       this.getSelectedHotel(parseId);
-    })
+    });
   }
 
   ngAfterViewInit() {
@@ -104,14 +125,13 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
     this.validateForm();
   }
 
-
   // Méthode pour cacher le message d'erreur
   public hideErrorMessage(): void {
     this.errorMessage = null;
   }
 
   // Méthode pour récupérer un hôtel selon l'id
-  public getSelectedHotel(id: number): void{
+  public getSelectedHotel(id: number): void {
     // appel de la méthode getHotelById
     this.hotelService.getHotelById(id).subscribe((hotel: IHotel) => {
       this.displayHotel(hotel);
@@ -119,15 +139,15 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
   }
 
   // Méthode pour afficher les hôtels
-  public displayHotel(hotel: IHotel): void{
+  public displayHotel(hotel: IHotel): void {
     if (this.hotel !== undefined) {
       // après le narrowing, hotel est de type IHotel seulement, car on a vérifié qu'il n'est pas undefined
       this.hotel = hotel;
     }
 
-    if(this.hotel.id === 0){
-      this.pageTitle = "Create an hotel";
-    }else{
+    if (this.hotel.id === 0) {
+      this.pageTitle = 'Create an hotel';
+    } else {
       this.pageTitle = 'Modify the hotel ${this.hotel.hotelName}';
     }
 
@@ -137,7 +157,7 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
       hotelName: this.hotel.hotelName,
       price: this.hotel.price,
       rating: this.hotel.rating,
-      description: this.hotel.hotelDescription,
+      description: this.hotel.hotelDescription
     });
     this.hotelForm.setControl('tags', this.fb.array(this.hotel.tags || []));
   }
@@ -156,9 +176,8 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
     this.tags.markAsDirty();
   }
 
-
   // Méthode pour sauvegarder les données
-  public saveHotel(): void{
+  public saveHotel(): void {
     this.isFormSubmitted = true;
 
     this.hotelForm.updateValueAndValidity({
@@ -166,23 +185,23 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
       emitEvent: true
     });
 
-    if(this.hotelForm.valid){
-      if(this.hotelForm.dirty){
+    if (this.hotelForm.valid) {
+      if (this.hotelForm.dirty) {
         const hotel: IHotel = {
-          ... this.hotel,
-          ... this.hotelForm.value
+          ...this.hotel,
+          ...this.hotelForm.value
         };
 
-         // add or edit logic
-         if (hotel.id === 0) {
+        // add or edit logic
+        if (hotel.id === 0) {
           this.hotelService.createHotel(hotel).subscribe({
             next: () => this.saveCompleted(),
-            error: (err) => this.errorMessage = err
+            error: (err) => (this.errorMessage = err)
           });
         } else {
           this.hotelService.updateHotel(hotel).subscribe({
             next: () => this.saveCompleted(),
-            error: (err) => this.errorMessage = err
+            error: (err) => (this.errorMessage = err)
           });
         }
       } else {
@@ -193,40 +212,43 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
     }
   }
 
-
-// Méthode pour supprimer un hôtel
-public deleteHotel(): void {
-
-  if (this.hotel.id === 0) {
-    this.saveCompleted();
-  } else {
-    if (confirm(`Are you sure to delete ${this.hotel.hotelName} ?`)) {
-      this.hotelService.deleteHotel(this.hotel.id).subscribe({
-        next: () => this.saveCompleted(),
-        error: (err) => this.errorMessage = err
-      });
+  // Méthode pour supprimer un hôtel
+  public deleteHotel(): void {
+    if (this.hotel.id === 0) {
+      this.saveCompleted();
+    } else {
+      if (confirm(`Are you sure to delete ${this.hotel.hotelName} ?`)) {
+        this.hotelService.deleteHotel(this.hotel.id).subscribe({
+          next: () => this.saveCompleted(),
+          error: (err) => (this.errorMessage = err)
+        });
+      }
     }
   }
-}
 
-// Méthode pour réinitialiser le formulaire
-public saveCompleted(): void {
-  this.hotelForm.reset();
-  this.router.navigate(['/hotels']);
-}
+  // Méthode pour réinitialiser le formulaire
+  public saveCompleted(): void {
+    this.hotelForm.reset();
+    this.router.navigate(['/hotels']);
+  }
 
+  public validateForm(): void {
+    const formControlBlurs: Observable<unknown>[] = this.inputElements.map(
+      (formControlElemRef: ElementRef) =>
+        fromEvent(formControlElemRef.nativeElement, 'blur')
+    );
 
-public validateForm(): void {
-  const formControlBlurs: Observable<unknown>[] = this.inputElements
-    .map((formControlElemRef: ElementRef) => fromEvent(formControlElemRef.nativeElement, 'blur'));
-
-  merge(this.hotelForm.valueChanges, ...formControlBlurs).pipe(
-    // debounceTime(300)
-    debounce(() => this.isFormSubmitted ? EMPTY : timer(300))
-  ).subscribe(() => {
-    this.formErrors = this.genericGlobalValidator.createErrorMessages(this.hotelForm, this.isFormSubmitted);
-    console.log('value on subscribe errors: ', this.formErrors);
-  });
-}
-
+    merge(this.hotelForm.valueChanges, ...formControlBlurs)
+      .pipe(
+        // debounceTime(300)
+        debounce(() => (this.isFormSubmitted ? EMPTY : timer(300)))
+      )
+      .subscribe(() => {
+        this.formErrors = this.genericGlobalValidator.createErrorMessages(
+          this.hotelForm,
+          this.isFormSubmitted
+        );
+        console.log('value on subscribe errors: ', this.formErrors);
+      });
+  }
 }

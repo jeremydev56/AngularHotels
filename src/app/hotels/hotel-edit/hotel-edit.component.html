@@ -1,25 +1,21 @@
 <!-- PAGE POUR CRÉÉR UN NOUVEL HÔTEL -->
 
-
-  <!-- Pour afficher le message d'erreur -->
-  <ng-container *ngIf="errorMessage">
-    <div class="alert alert-danger d-flex align-items-center">
-      <span class="material-icons mr-2">error</span>
-      <span class="material-icons ml-auto">close</span>
-      {{ errorMessage }}
-    </div>
-  </ng-container>
-
+<!-- Pour afficher le message d'erreur -->
+<ng-container *ngIf="errorMessage">
+  <div class="alert alert-danger d-flex align-items-center">
+    <span class="material-icons mr-2">error</span>
+    <span class="material-icons ml-auto">close</span>
+    {{ errorMessage }}
+  </div>
+</ng-container>
 
 <div class="card">
   <div class="card-header text-white bg-info">
     {{ pageTitle }}
   </div>
 
-
   <div class="card-body">
-
-    <input type="text" #test>
+    <input type="text" #test />
 
     <!--
       LE FORMULAIRE D'ÉDITION
@@ -29,71 +25,68 @@
       grâce à la méthode ngSubmit
     -->
     <form noValidate (ngSubmit)="saveHotel()" [formGroup]="hotelForm">
-
       <!-- LE NOM -->
       <div class="form-group row mb-2">
-        <label for="hotelNameId" class=" col-md-2 col-form-label">
-          Name
-        </label>
+        <label for="hotelNameId" class="col-md-2 col-form-label"> Name </label>
         <div class="col-md-8">
           <input
-          id="hotelNameId"
-          type="text"
-          class="form-control"
-          formControlName="hotelName"
-          placeholder="NAME (required)"
-          [ngClass]="{ 'is-invalid': formErrors.hotelName }"
+            id="hotelNameId"
+            type="text"
+            class="form-control"
+            formControlName="hotelName"
+            placeholder="NAME (required)"
+            [ngClass]="{ 'is-invalid': formErrors['hotelName'] }"
           />
           <span class="invalid-feedback">
-            {{ formErrors.hotelName }}
+            {{ formErrors['hotelName'] }}
           </span>
         </div>
       </div>
 
       <!-- LE PRIX -->
       <div class="form-group row mb-2">
-        <label for="hotelPriceId" class=" col-md-2 col-form-label">
+        <label for="hotelPriceId" class="col-md-2 col-form-label">
           Price
         </label>
         <div class="col-md-8">
           <input
-          id="hotelPriceId"
-          type="number"
-          class="form-control"
-          formControlName="price"
-          placeholder="PRICE (required)"
-          [ngClass]="{ 'is-invalid': formErrors.price }"
+            id="hotelPriceId"
+            type="number"
+            class="form-control"
+            formControlName="price"
+            placeholder="PRICE (required)"
+            [ngClass]="{ 'is-invalid': formErrors['price'] }"
           />
           <span class="invalid-feedback">
-            {{ formErrors.price }}
+            {{ formErrors['price'] }}
           </span>
         </div>
       </div>
 
       <!-- LA NOTE -->
       <div class="form-group row mb-2">
-        <label for="starRatingId" class=" col-md-2 col-form-label">
+        <label for="starRatingId" class="col-md-2 col-form-label">
           Rating (1-5)
         </label>
         <div class="col-md-8">
-          <input id="starRatingId"
-          type="number"
-          class="form-control"
-          formControlName="rating"
-          placeholder="RATING (1-5)"
-          [ngClass]="{ 'is-invalid': formErrors.rating }"
-        />
-        <span class="invalid-feedback">
-          {{ formErrors.rating }}
-        </span>
+          <input
+            id="starRatingId"
+            type="number"
+            class="form-control"
+            formControlName="rating"
+            placeholder="RATING (1-5)"
+            [ngClass]="{ 'is-invalid': formErrors['rating'] }"
+          />
+          <span class="invalid-feedback">
+            {{ formErrors['rating'] }}
+          </span>
         </div>
       </div>
-
 
       <div formArrayName="tags">
         <div
           class="form-group row mb-2"
-          *ngFor="let tag of tags.controls ; let i = index"
+          *ngFor="let tag of tags.controls; let i = index"
         >
           <label [attr.for]="i" class="col-md-2 col-form-label">
             {{ 'Label' + i }}
@@ -104,49 +97,63 @@
               [id]="i"
               type="text"
               placeholder="{{ 'Étiquette ' + i }}"
-              [FormControlName]="i"
+              [formControlName]="i"
             />
           </div>
-          <button type="button" class="col-md-2 btn-outline-danger btn-sm"(click)="deleteTag(i)">
+          <button
+            type="button"
+            class="col-md-2 btn-outline-danger btn-sm"
+            (click)="deleteTag(i)"
+          >
             Delete
           </button>
         </div>
         <div class="col-md-2 mb-2">
-          <button type="button" class="btn btn-outline-primary btn-sm" (click)="addTag()">
+          <button
+            type="button"
+            class="btn btn-outline-primary btn-sm"
+            (click)="addTag()"
+          >
             Add a label
           </button>
         </div>
       </div>
 
-
       <!-- LA DESCRIPTION -->
       <div class="form-group row mb-2">
-        <label for="descriptionId" class=" col-md-2 col-form-label">
+        <label for="descriptionId" class="col-md-2 col-form-label">
           Description
         </label>
         <div class="col-md-8">
-          <textarea class="form-control" id="descriptionId" formControlName="description"></textarea>
+          <textarea
+            class="form-control"
+            id="descriptionId"
+            formControlName="description"
+          ></textarea>
         </div>
       </div>
 
       <!-- LES BOUTONS D'ENREGISTREMENT / D'ANNULATION / DE SUPPRESSION -->
       <div class="form-group row mb-2">
         <div class="offset-md-2 col-md-4">
-          <button class="btn btn-info mr-3" type="submit">
-            Save
-          </button>
-          <button class="btn btn-outline-secondary mr-3" type="reset" router-Link="/hotels">
+          <button class="btn btn-info mr-3" type="submit">Save</button>
+          <button
+            class="btn btn-outline-secondary mr-3"
+            type="reset"
+            router-Link="/hotels"
+          >
             Cancel
           </button>
-          <button class="btn btn-outline-danger" type="button" [disabled]="hotel.id === 0" (click)="deleteHotel()">
+          <button
+            class="btn btn-outline-danger"
+            type="button"
+            [disabled]="hotel.id === 0"
+            (click)="deleteHotel()"
+          >
             Delete
           </button>
         </div>
       </div>
-
     </form>
-
   </div>
 </div>
-
-
